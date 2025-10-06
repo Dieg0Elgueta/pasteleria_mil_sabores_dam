@@ -19,3 +19,6 @@ tasks.test {
 kotlin {
     jvmToolchain(22)
 }
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+}
