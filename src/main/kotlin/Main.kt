@@ -44,15 +44,36 @@ fun manejarResultado(resultado: ResultadoOperacion){
     }
 }
 
-    fun main() {
+class ServicioPedidos(){
 
+    val clientes = listOf(
+        Cliente(2, "Juan Perez", "juan@email.com", true),
+        Cliente(3, "María Garcia", "maria@email.com", true),
+        Cliente(4, "Carlos Lopez", "carlos@email.com", false),
+        Cliente(5, "Ana Martínez", "ana@email.com", true)
+    )
+    suspend fun obtenerCliente(id: Int): Cliente?{
+        delay(2000)
+        return clientes.find { it.id == id }
+    }
+}
+
+fun main(): Unit = runBlocking {
+
+    //CREACIÓN CLIENTE, MANEJAR RESULTADOS.
     val cliente1 = Cliente(1, "Diego Elgueta", "dieelgueta@duocuc.cl", true)
     manejarResultado(Procesando)
     println(cliente1.mostrarCliente())
     manejarResultado(Exitoso(""))
 
+    //CREACIÓN PEDIDO, MANEJO DE ESTADOS,
     val pedido1 = Pedido(1, 1,listOf("Laptop", "Mouse", "Teclado"),1500, EstadoPedido.PENDIENTE)
     println(pedido1.mostrarPedido())
     manejarBusqueda(pedido1.estado)
+
+    //USO DE FUNCIONES, OBTENER CLIENTE POR ID.
+    val servicio = ServicioPedidos()
+    val cliente = servicio.obtenerCliente(2)
+    print(cliente)
 
 }
